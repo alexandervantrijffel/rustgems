@@ -1,6 +1,8 @@
 use std::cell::RefCell;
 
-// Use RefCell to mutate a variable in a closure
+/// Use ``RefCell`` to mutate a variable in a closure
+/// # Panics
+///
 pub fn mutate_in_closure() {
   let my_string = RefCell::new("hello".to_string());
   let mutate = |new_val| {

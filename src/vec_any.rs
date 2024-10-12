@@ -33,8 +33,10 @@ trait AnyAnimal: Animal + AsAny {}
 impl<T: Animal + AsAny> AnyAnimal for T {}
 type BoxedAnimal = Box<dyn AnyAnimal>;
 
-// Demonstrates creating a vector of common Animal trait objects,
-// then downcasting to a concrete Dog type instance to be able to access its fields.
+/// Demonstrates creating a vector of common Animal trait objects,
+/// then downcasting to a concrete Dog type instance to be able to access its fields.
+/// # Panics
+///
 pub fn downcast_concrete_type_instance_from_trait_object() {
   let c = Cat {};
   let d = Dog { name: "Fido".to_string() };
