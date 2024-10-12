@@ -45,7 +45,7 @@ pub fn downcast_concrete_type_instance_from_trait_object() {
 
   let x = &the_zoo[1];
   let dog = x.as_any().downcast_ref::<Dog>().unwrap();
-  println!("The name of the dog is {}", dog.name);
+  assert!(dog.name == "Fido");
 }
 
 mod tests {
