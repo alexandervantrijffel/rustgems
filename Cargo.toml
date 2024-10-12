@@ -1,8 +1,13 @@
 [package]
-name = "Rust gems"
+name = "rustgems"
 version = "0.1.0"
 edition = "2021"
 publish = false
+
+[lib]
+name = "licactlib"
+path = "src/lib.rs"
+doctest = false
 
 [profile.release]
 # debug = true      # Enable debug symbols
