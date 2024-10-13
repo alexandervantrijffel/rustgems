@@ -21,19 +21,19 @@ jobs:
       - uses: actions-rust-lang/setup-rust-toolchain@v1
         with:
           components: rustfmt, clippy
+      - uses: extractions/setup-just@v1
+
       - name: fmt validation
-        run: |
-          cargo fmt -- --check
+        run: cargo fmt -- --check
 
       - name: clippy validation
-        run: |
-          cargo clippy --release -- -Dwarnings
+        run: just clippy-release
 
       - uses: actions-rs/audit-check@v1.2.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: extractions/setup-just@v1
+      - uses: taiki-e/install-action@nextest
       - name: Test
         run: just test-all --release
 
@@ -43,5 +43,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions-rust-lang/setup-rust-toolchain@v1
+      - uses: extractions/setup-just@v1
+
       - name: Build in release mode
-        run: cargo build --release --verbose
+        run: just build-release
