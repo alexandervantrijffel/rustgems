@@ -2,7 +2,7 @@ build-release:
     cargo build --release --verbose
 
 clippy-release:
-    cargo clippy --release -- -Wwarnings -Wclippy::pedantic -Wclippy::nursery -Wclippy::all -Wclippy::cargo
+    cargo clippy --release -- -W warnings -W clippy::pedantic -W clippy::nursery -W clippy::all -W clippy::cargo -A clippy::cargo_common_metadata
 
 test-all *ARGS: 
     #!/bin/sh
