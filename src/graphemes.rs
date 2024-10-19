@@ -1,8 +1,6 @@
-#![allow(dead_code)]
-
 use unicode_segmentation::UnicodeSegmentation;
 
-trait Trim {
+pub trait Trim {
   fn trim_count(&self, count: usize) -> String;
 }
 
