@@ -9,6 +9,9 @@ name = "licactlib"
 path = "src/lib.rs"
 doctest = false
 
+[dependencies]
+unicode-segmentation = "1"
+
 [profile.release]
 # debug = true      # Enable debug symbols
 strip = true        # Strip symbols from binary
