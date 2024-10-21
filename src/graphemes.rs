@@ -1,5 +1,6 @@
 use unicode_segmentation::UnicodeSegmentation;
 
+/// Trait extension example
 pub trait Trim {
   fn trim_count(&self, count: usize) -> String;
 }
