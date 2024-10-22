@@ -1,8 +1,11 @@
+default:
+  @just --list
+
 build-release:
     cargo build --release --verbose
 
 clippy-release:
-    cargo clippy --release -- -W warnings -W clippy::pedantic -W clippy::nursery -W clippy::all -W clippy::cargo -A clippy::cargo_common_metadata
+    cargo clippy --release -- -W warnings -W clippy::pedantic -W clippy::nursery -W clippy::all -W clippy::cargo -W clippy::cognitive_complexity -A clippy::cargo_common_metadata
 
 test-all *ARGS: 
     #!/bin/sh
