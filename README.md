@@ -20,8 +20,8 @@ Run the snippets in debug mode:
 just test-all
 ```
 
-Run the snippets in release mode:
+Run clippy validations and tests in parallel:
 
 ```shell
-just test-all --release
+just clippy-release & just test-all
 ```
