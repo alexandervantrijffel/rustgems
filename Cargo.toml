@@ -10,13 +10,16 @@ path = "src/lib.rs"
 doctest = false
 
 [dependencies]
+futures = "0.3.31"
+moro-local = "0.4.0"
+tokio = { version = "1", default-features = false, features = ["rt", "time", "macros", "rt-multi-thread"] }
 unicode-segmentation = "1"
 
 [profile.release]
 # debug = true      # Enable debug symbols
-strip = true        # Strip symbols from binary
-lto = true          # Enable link-time optimization
-codegen-units = 64  # Improve compile time
+strip = true # Strip symbols from binary
+lto = true # Enable link-time optimization
+codegen-units = 64 # Improve compile time
 panic = 'abort'
-opt-level = 1       # Basic optimizations, improved compile time
-incremental = true  # shorten hot local builds duration
+opt-level = 1 # Basic optimizations, improved compile time
+incremental = true # shorten hot local builds duration
