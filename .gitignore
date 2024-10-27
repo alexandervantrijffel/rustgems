@@ -21,3 +21,5 @@
 **/.aws-sam
 
 **/generated_at_build.rs
+
+dprint.json
