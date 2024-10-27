@@ -13,8 +13,9 @@ This repository offers some Rust snippets that can be useful when studying the l
 
 Dependencies:
 
-- Install the command runner [just](https://github.com/casey/just?tab=readme-ov-file#installation).
-- Install the test runner [cargo-nexttest](https://nexte.st/).
+- Install the command runner [just](https://github.com/casey/just?tab=readme-ov-file#installation)
+- Install the nextest runner [cargo-nexttest](https://nexte.st/)
+- For improved incrememtal build times, install the nightly toolchain to support the cranelift backend: `rustup toolchain install nightly`
 
 Run the snippets in debug mode:
 

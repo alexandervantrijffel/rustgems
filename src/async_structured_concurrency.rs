@@ -11,7 +11,7 @@ use std::sync::RwLock;
 /// With this approach, we don't need types that are Send like Arc to share the database and
 /// service dependencies, and no async move is needed. This greatly improves the developer UX.
 /// The test_demo test is configured to use the Tokio current thread runtime to emulate thread-per-core.
-/// The total duration of the test is 1.53s on my machine which proves that the 1000 requests are
+/// The total duration of the test is 1.08s on my machine which proves that the requests are
 /// processed concurrently. The spawned tasks within the inner moro scope are executed within the same
 /// thread, these tasks are not moved between threads and therefore the called future doees not need
 /// to be Send.
