@@ -23,25 +23,28 @@ pub async fn structured_concurrency_demo(incoming: impl Stream<Item = Request>) 
     while let Some(request) = incoming.next().await {
       let _response = scope.spawn(async {
         let request = request;
+        // Start a new async scope for each incoming request.
         moro_local::async_scope!(|scope| {
           let Ok(two_things) = context.db.load_two_things().await else {
             return Err(());
           };
           for _ in two_things {
-            // these two tasks are executed within the scope and are awaited at the end of the
-            // inner scope
+            // These two tasks are executed within the inner scope which handles a single request.
+            // The results are not observed here, but they are awaited at the end of the inner scope.
             scope.spawn(context.service_a.do_something(&request, &context.requests_processed));
           }
-          let result_b = context.service_b.do_something(&request, &context.requests_processed);
-          let result_c = context.service_c.do_something(&request, &context.requests_processed);
-          let (b, c) = futures::try_join!(result_b, result_c).map_err(|_| ())?;
-          Ok::<_, ()>(Response { b, c })
+          let service_b_task = context.service_b.do_something(&request, &context.requests_processed);
+          let service_c_task = context.service_c.do_something(&request, &context.requests_processed);
+          let (_result_of_b, _result_of_c) = futures::try_join!(service_b_task, service_c_task).map_err(|err| {
+            eprintln!("Failed to execute task: {err:?}");
+          })?;
+          Ok(())
         })
-        .await
+        .await // Wait for the inner scope to finish.
       });
     }
   })
-  .await;
+  .await; // wait for the stream to run to completion
 
   println!("do_something executed {} times", *context.requests_processed.read().unwrap());
 
@@ -66,12 +69,6 @@ pub struct Thing;
 pub struct Request;
 #[derive(Default)]
 pub struct Database;
-#[derive(Default)]
-#[allow(dead_code)]
-pub struct Response {
-  b: ServiceResult,
-  c: ServiceResult,
-}
 
 impl Database {
   async fn load_two_things(&self) -> Result<Vec<Thing>, Box<dyn Error>> {
