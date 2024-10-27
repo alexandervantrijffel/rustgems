@@ -14,6 +14,12 @@ test-all *ARGS: check-dependencies
 test-watch-all *ARGS: check-dependencies
     cargo watch -c -w . -x "nextest run --verbose {{ ARGS }}"
 
+# run all tests with nextest in watch mode, use the cranelift compiler to reduce incremental build times
+test-watch-all-cranelift *ARGS: check-dependencies
+  rustup override set nightly
+  export RUSTFLAGS="${RUSTFLAGS} -Zthreads=8"
+  CARGO_PROFILE_DEV_CODEGEN_BACKEND=cranelift cargo watch -q -c --ignore '**/generated_at_build.rs' -w . -x "+nightly nextest run -Zcodegen-backend --all-features --verbose {{ARGS}}"
+
 # build the project in release mode
 build-release:
     cargo build --release --verbose
