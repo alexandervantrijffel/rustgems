@@ -49,6 +49,6 @@ mod tests {
     the_zoo.iter().for_each(|a| a.talk());
 
     let x = &the_zoo[1];
-    let dog = x.as_any().downcast_ref::<Dog>().expect("Failed to downcast to Dog");
+    let _ = x.as_any().downcast_ref::<Dog>().expect("Failed to downcast to Dog");
   }
 }

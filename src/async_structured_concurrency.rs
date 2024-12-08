@@ -79,7 +79,7 @@ impl Database {
 #[derive(Default)]
 pub struct Service;
 impl Service {
-  /// simulate a task that takes 200ms
+  /// simulate a task that takes 1000ms
   async fn do_something(&self, _request: &Request, requests_processed: &RwLock<usize>) -> Result<ServiceResult, Box<dyn Error>> {
     tokio::time::sleep(std::time::Duration::from_millis(1000)).await;
 
